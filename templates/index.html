@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Image Palette Extractor</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <meta name="description" content="for extracting the color palette of an image for design and theming purposes">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <h1><img src="{{ url_for('static', filename='favicon.ico') }}"> &nbsp;Image Palette Extractor</h1>
+        <form action = "/" method = "post" enctype="multipart/form-data">
+            <input type="file" required accept=".png, .jpg, .jpeg" name="image">
+            <label for="n_colors">Colors:</label>
+            <input type="number" value="5" min="1" max="10" name="n_colors">
+            <br>
+            <button class="pushable">
+                <span class="shadow"></span>
+                <span class="edge"></span>
+                <span class="front">
+                <input type ="submit" value="Generate">  
+                </span>
+            </button>
+            
+        </form>
+        <div id="container">
+        {% if filestring and palette %}
+            <div id="left">
+                <img id="pic" src="data:image/*;base64, {{filestring}}" alt="uploaded picture"/>
+            </div>
+            <div id="right">
+            {% for color in palette %}
+                <div class="pixel">
+                    <div class="square" style="background-color:rgb({{color.0}},{{color.1}},{{color.2}})"
+                        onclick="copyToClipboard({{ color.0 }}, {{ color.1 }}, {{ color.2 }})">
+                        <span >click to copy code</span>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+        </div>
+        <script async defer>
+            function componentToHex(val) {
+                let hex = val.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
+
+            function toHex(red, green, blue) {
+                return "#" + componentToHex(red) + componentToHex(green) + componentToHex(blue);
+            }
+
+            function copyToClipboard(red, green ,blue) {
+                let str = toHex(red, green, blue);
+                navigator.clipboard.writeText(str);
+            }
+        </script>
+    </body>
+</html>
