@@ -8,6 +8,7 @@
         <meta name="description" content="for extracting the color palette of an image for design and theming purposes">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <script src="{{ url_for('static', filename='functions.js') }}"></script>
     </head>
     <body>
         <h1><img src="{{ url_for('static', filename='favicon.ico') }}"> &nbsp;Image Palette Extractor</h1>
@@ -33,29 +34,15 @@
             <div id="right">
             {% for color in palette %}
                 <div class="pixel">
-                    <div class="square" style="background-color:rgb({{color.0}},{{color.1}},{{color.2}})"
-                        onclick="copyToClipboard({{ color.0 }}, {{ color.1 }}, {{ color.2 }})">
-                        <span >click to copy code</span>
+                    <div class="square" id="square_{{loop.index}}" style="background-color:rgb({{color.0}},{{color.1}},{{color.2}})"
+                        onmouseover="showHex({{loop.index}})"
+                        onclick="clicked({{loop.index}})">
+                        <span id="tooltip_{{loop.index}}"></span>
                     </div>
                 </div>
             {% endfor %}
             </div>
         {% endif %}
         </div>
-        <script async defer>
-            function componentToHex(val) {
-                let hex = val.toString(16);
-                return hex.length == 1 ? "0" + hex : hex;
-            }
-
-            function toHex(red, green, blue) {
-                return "#" + componentToHex(red) + componentToHex(green) + componentToHex(blue);
-            }
-
-            function copyToClipboard(red, green ,blue) {
-                let str = toHex(red, green, blue);
-                navigator.clipboard.writeText(str);
-            }
-        </script>
     </body>
 </html>

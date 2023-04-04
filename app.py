@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 from base64 import b64encode
 from extractor import get_palette
 
-
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
@@ -16,3 +15,5 @@ def index():
         return render_template("index.html", filestring=image_string, palette=palette)
     return render_template("index.html")
 
+if __name__ == '__main__':
+    app.run()
