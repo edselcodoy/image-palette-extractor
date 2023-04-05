@@ -14,7 +14,7 @@ You can also run this locally by
 1. Cloning this repository,
 2. Installing dependencies, and
    ```
-   pip install requirements.py
+   pip install -r requirements.txt
    ```
 3. Running the Flask app.
     ```
