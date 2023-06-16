@@ -7,9 +7,6 @@ Upload images (currently supporting **.jpg** and **.png** extensions only) in th
 
 Through the use of unsupervised machine learning, pixels are clustered which results in obtaining the top *k* colors (RGB values). 
 
-You can try it out through [Image Palette Extractor](https://image-palette-extractor.azurewebsites.net/) (although it may be sleeping when first visited due to free tier hosting conditions).
-
-
 You can also run this locally by 
 1. Cloning this repository,
 2. Installing dependencies, and
